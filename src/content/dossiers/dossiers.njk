@@ -20,18 +20,6 @@ i18nSubheader: "dossiersSubheader"
 
     <h2 data-i18n="allDossiers" class="capitalize-first">Alle dossiers</h2>
 
-    <!-- FAQ -->
-    <ul class="faq-list">
-        <li class="card padded flex-col">
-            <details>
-                <summary>Wat zijn dossiers?</summary>
-                <p>De commissies bereiden het werk van de plenaire vergadering voor, zodat die sneller en efficiënter kan werken.</p>
-                <p>Ze behandelen wetsontwerpen en voorstellen, bespreken en stemmen over eventuele wijzigingen. Het eindverslag gaat daarna naar de plenaire vergadering.</p>
-                <p>Daarnaast controleren commissies de regering via interpellaties en mondelinge vragen.</p>
-            </details>
-        </li>
-    </ul>
-
     <!-- GRID -->
     <div class="item-grid">
     {% for dossier in dossiers.dossiers | sortDate("submission_date", "desc") %}

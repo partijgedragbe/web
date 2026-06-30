@@ -80,7 +80,8 @@
       "patiënt",
       "hiv",
       "sigaret",
-      "tandzorg"
+      "tandzorg",
+      "mantelzorg"
     ],
     "background": "#dae0f6",
     "color": "#4c5677",
@@ -167,6 +168,7 @@
   },
   "economie en werk": {
     "keywords": [
+      "loonkloof",
       "maaltijdcheques",
       "prijsindex",
       "loonindexering",
@@ -236,7 +238,8 @@
       "ontslag",
       "ArcelorMittal",
       "Audi",
-      "vermogen"
+      "vermogen",
+      "e-commerce"
     ],
     "background": "#f2e0d3",
     "color": "#874a19",
@@ -262,6 +265,8 @@
   },
   "veiligheid, justitie en defensie": {
     "keywords": [
+      "justitiële",
+      "brandweer",
       "racisme",
       "rechtspspraak",
       "is-strijders",

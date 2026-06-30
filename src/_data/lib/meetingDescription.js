@@ -40,7 +40,7 @@ export function meetingDescription(meeting) {
     : null;
 
   if (!topicPart && !extraPart) {
-    return "Overzicht van de plenaire vergadering van de Kamer van Volksvertegenwoordigers.";
+    return "Tijdens deze plenaire vergadering werden geen vragen, voorstellen, stemming of mededelingen besproken maar werd wel andere inhoud besproken.";
   }
 
   if (topicPart && extraPart) {

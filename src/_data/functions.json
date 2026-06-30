@@ -196,7 +196,13 @@
     {
       "function": "Minister van Binnenlandse Zaken",
       "start_date": "2020-10-01",
-      "end_date": "2025-02-03"
+      "end_date": "2025-02-03",
+      "fraction": "cd&v"
+    },
+    {
+      "function": "Minister van Justitie",
+      "start_date": "2025-02-03",
+      "fraction": "cd&v"
     }
   ]
 }

@@ -51,35 +51,40 @@ eleventyComputed:
                 <div class="flex-col gap">
                     <!-- SUMMARY -->
                     <p>
+                        Verslag van de plenaire vergadering van {{ meeting.date | date }} ({{ meeting.start_time }}).
+                    </p>
+                    <p>
                         {{ meeting | meetingDescription }}
                     </p>
 
                     <!-- ATTENDANCE -->
-                    {% set attendance = meeting.attendance %}
-                    {% set attendanceColor = "var(--color-on-negative)" %}
-                    {% if attendance.ratio >= 0.85 %}
-                    {% set attendanceColor = "var(--color-on-positive)" %}
-                    {% elif attendance.ratio >= 0.65 %}
-                    {% set attendanceColor = "var(--color-on-warning)" %}
-                    {% endif %}
-
-                    <div class="flex-row align-items:center justify-content:space-between">
-                        <p class="bold capitalize-first" data-i18n="attendance"></p>
-                        {% if  meeting.allVotes.length > 0 %}
-                        <p>{{ attendance.count }}/150 ({{ (attendance.ratio * 100) | round(0, 'floor') }}%)</p>
-                        {% else %}
-                        <p>onbekend</p>
+                    {% if  meeting.allVotes.length > 0 %}
+                        {% set attendance = meeting.attendance %}
+                        {% set attendanceColor = "var(--color-on-negative)" %}
+                        {% if attendance.ratio >= 0.85 %}
+                        {% set attendanceColor = "var(--color-on-positive)" %}
+                        {% elif attendance.ratio >= 0.65 %}
+                        {% set attendanceColor = "var(--color-on-warning)" %}
                         {% endif %}
-                    </div>
 
-                    <div class="progress-bar rounded">
-                        <div style="
-                                width: {{ (attendance.ratio * 100) | round(0, 'floor') }}%;
-                                height: 100%;
-                                background-color: {{ attendanceColor }};
-                            ">
+                        <div class="flex-row align-items:center justify-content:space-between">
+                            <p class="bold capitalize-first" data-i18n="attendance"></p>
+                            {% if  meeting.allVotes.length > 0 %}
+                            <p>{{ attendance.count }}/150 ({{ (attendance.ratio * 100) | round(0, 'floor') }}%)</p>
+                            {% else %}
+                            <p>onbekend</p>
+                            {% endif %}
                         </div>
-                    </div>
+
+                        <div class="progress-bar rounded">
+                            <div style="
+                                    width: {{ (attendance.ratio * 100) | round(0, 'floor') }}%;
+                                    height: 100%;
+                                    background-color: {{ attendanceColor }};
+                                ">
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
