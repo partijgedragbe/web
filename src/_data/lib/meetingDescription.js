@@ -44,7 +44,7 @@ export function meetingDescription(meeting) {
   }
 
   if (topicPart && extraPart) {
-    return `Tijdens deze plenaire vergadering ${topicPart}. Daarnaast ${extraPart}.`;
+    return `In deze vergadering ${topicPart}. Daarnaast ${extraPart}.`;
   }
 
   if (topicPart) {

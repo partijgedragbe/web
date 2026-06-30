@@ -8,7 +8,7 @@ pagination:
     alias: meeting
     addAllPagesToCollections: true
 eleventyComputed:
-    title: "Plenaire vergadering van {{ meeting.date | date }} ({{ meeting.start_time }}): vragen en stemmingen"
+    title: "Verslag plenaire vergadering {{ meeting.date | date }} ({{ meeting.start_time }})"
     description: "{{ meeting | meetingDescription }}"
     i18nHeader: "plenaryMeetingHeader"
     i18nHeaderVars: {
