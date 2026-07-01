@@ -109,7 +109,15 @@ export default async function () {
       });
 
       const summaryByDossier = Object.fromEntries(
-        summaryRows.map((r) => [r[3], r[1]]),
+        summaryRows.map((r) => [r[5], r[1]]),
+      );
+
+      const titleByDossier = Object.fromEntries(
+        summaryRows.map((r) => [r[5], r[2]]),
+      );
+
+      const descriptionByDossier = Object.fromEntries(
+        summaryRows.map((r) => [r[5], r[3]]),
       );
 
       const groupArgumentsByFraction = (args) => {
@@ -207,6 +215,8 @@ export default async function () {
             : [],
           subdocuments: subdocs,
           summary: summaryByDossier[row[1]] ?? null,
+          summarizedTitle: titleByDossier[row[1]] ?? null,
+          summarizedDescription: descriptionByDossier[row[1]] ?? null,
           arguments: argumentsByDossier[row[1]]
             ? {
               ...argumentsByDossier[row[1]],

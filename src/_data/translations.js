@@ -240,7 +240,7 @@ export default {
     dossiersSubheader: "All dossiers of the Belgian Chamber.",
     // DOSSIER
     dossierHeader: "{title}",
-    dossierSubHeader: "View everything about dossier {id}.",
+    dossierSubHeader: "View everything about dossier {id}. {title}",
     argumentsDescription:
       "View the arguments for/against from the various groups.",
     // VOTE
@@ -468,7 +468,7 @@ export default {
     dossiersSubheader: "Tous les dossiers de la Chambre belge.",
     // DOSSIER
     dossierHeader: "{title}",
-    dossierSubHeader: "Consultez tout ce qui concerne le dossier {id}.",
+    dossierSubHeader: "Consultez tout ce qui concerne le dossier {id}. {title}",
     argumentsDescription:
       "Consultez les arguments pour/contre des différents groupes.",
     // VOTE
@@ -737,7 +737,7 @@ export default {
     dossiersSubheader: "Alle dossiers van de Belgische Kamer.",
     // DOSSIER
     dossierHeader: "{title}",
-    dossierSubHeader: "Bekijk alles over dossier {id}.",
+    dossierSubHeader: "Bekijk alles over dossier {id}. {title}",
     argumentsDescription:
       "Bekijk de argumenten voor/tegen van de verschillende fracties.",
     // VOTE

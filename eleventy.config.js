@@ -223,7 +223,11 @@ export default async function (eleventyConfig) {
 
   eleventyConfig.addCollection(
     "sitemap",
-    (api) => api.getAll().filter((item) => item.data.sitemap === true),
+    (api) =>
+      api.getAll().filter((item) => {
+        const val = item.data.sitemap;
+        return val === true || val === "true";
+      }),
   );
 
   // Watch targets

@@ -7,15 +7,17 @@ pagination:
     alias: dossier
     addAllPagesToCollections: true
 eleventyComputed:
-    title: "Dossier {{ dossier.dossier_id }} {{ ' over ' + dossier.eurovoc_main_descriptor | lowercase if dossier.eurovoc_main_descriptor }}"
-    description: "Volg parlementair dossier {{ dossier.dossier_id }}: bekijk stemmingen, betrokken parlementsleden en de behandeling in de plenaire vergadering."
+    sitemap: "{{ false if not dossier.summary else true }}"
+    title: "{{ dossier.summarizedTitle if dossier.summarizedTitle else 'Dossier ' + dossier.dossier_id }}"
+    description: "{{ dossier.summarizedDescription if dossier.summarizedDescription else 'Alles over parlementair dossier ' + dossier.dossier_id + ': bekijk stemmingen, betrokken parlementsleden en de behandeling in de plenaire vergadering.' }}"
     i18nHeader: "dossierHeader"
     i18nHeaderVars: {
-        title: "{{ dossier.title }}"
+        title: "{{ 'Dossier ' + dossier.dossier_id + ': ' + dossier.summarizedTitle if dossier.summarizedTitle else 'Dossier ' + dossier.dossier_id + ': ' + dossier.title }}"
     }
     i18nSubheader: "dossierSubHeader"
     i18nSubheaderVars: {
-      id: "{{ dossier.dossier_id }}"
+      id: "{{ dossier.dossier_id }}",
+      title: "{{ dossier.title }}"
     }
 ---
 
@@ -60,10 +62,10 @@ eleventyComputed:
                 <!-- EUROVOC DESCRIPTORS -->
                 <div class="flex-row gap-small flex-wrap">
                     {% if dossier.eurovoc_main_descriptor %}
-                    <span class="badge secondary capitalize-first">{{ dossier.eurovoc_main_descriptor }}</span>
+                    <span class="badge secondary lowercase capitalize-first">{{ dossier.eurovoc_main_descriptor }}</span>
                     {% endif %}
                     {% for descriptor in dossier.eurovoc_descriptors %}
-                        <span class="badge secondary capitalize-first">{{ descriptor }}</span>
+                        <span class="badge secondary lowercase capitalize-first">{{ descriptor }}</span>
                     {% endfor %}
                 </div>
             </div>
