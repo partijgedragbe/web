@@ -91,7 +91,7 @@ i18nSubheader: "membersSubheader"
         {% set secondaryColor = fractionColors[member.fraction | lower].secondary or '#95a5a6' %}
         {% set imgSrc = "../content/members/img/" + (member.first_name | slugify) + "-" + (member.last_name | slugify) + ".jpg" %}
         {% set has_image = imgSrc | imageExists %}
-        <a class="card flex-col" href="/members/{{ member.first_name | slugify }}-{{ member.last_name | slugify }}" data-fraction="{{ member.fraction }}" data-constituency="{{ member.constituency }}" data-attendance="{{ member.attendance }}" data-normalized="{{ member.normalizedAttendance }}" data-outlier="{{ member.outlier }}" data-active="{{ member.active }}" style="color: inherit;">
+        <a class="card flex-col" href="/members/{{ member.first_name | slugify }}-{{ member.last_name | slugify }}/" data-fraction="{{ member.fraction }}" data-constituency="{{ member.constituency }}" data-attendance="{{ member.attendance }}" data-normalized="{{ member.normalizedAttendance }}" data-outlier="{{ member.outlier }}" data-active="{{ member.active }}" style="color: inherit;">
             <!-- HEADER -->
             <div class="flex-row justify-content:space-between align-items:start">
                 <div class="category" style="max-width:50%; background-color: {{ secondaryColor }}; color: {{ primaryColor }};">

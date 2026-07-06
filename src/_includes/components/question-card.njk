@@ -53,7 +53,7 @@
                     {% set fraction = params.question.questioners[0].fraction | lower %}
                     {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
                     {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
-                    <a href="/fractions/{{ params.question.questioners[0].fraction | slugify }}" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ params.question.questioners[0].fraction | normaliseFraction }}</a>
+                    <a href="/fractions/{{ params.question.questioners[0].fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ params.question.questioners[0].fraction | normaliseFraction }}</a>
                     <span><a href="/members/{{ params.question.questioners[0].name | slugify }}/">{{ params.question.questioners[0].name }}</a></span><br>
                 </p>
                 {% endif %}

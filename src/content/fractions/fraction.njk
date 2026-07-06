@@ -74,9 +74,11 @@ eleventyComputed:
     <!-- MEMBER GRID -->
     <div>
         <h2 id="members" class="capitalize-first" data-i18n="members">Leden</h2>
+        <p>De fractie {{ fraction }} bestaat uit {{ fraction.members | filter("active", "true") | length }} {{ 'actief lid' if fraction.members.length == 1 else 'actieve leden' }}. Hieronder ziet u een oplijsting van deze leden. U kan doorklikken op een persoon, om meer details over deze persoon te krijgen.</p>
+
         <div class="item-grid">
             {% for member in fraction.members %}
-            <a class="card flex-col" href="/members/{{ member.first_name | slugify }}-{{ member.last_name | slugify }}" data-fraction="{{ member.fraction }}" data-constituency="{{ member.constituency }}" data-attendance="{{ member.attendance }}" data-normalized="{{ member.normalizedAttendance }}" data-outlier="{{ member.outlier }}" data-active="{{ member.active }}" style="color: inherit;">
+            <a class="card flex-col" href="/members/{{ member.first_name | slugify }}-{{ member.last_name | slugify }}/" data-fraction="{{ member.fraction }}" data-constituency="{{ member.constituency }}" data-attendance="{{ member.attendance }}" data-normalized="{{ member.normalizedAttendance }}" data-outlier="{{ member.outlier }}" data-active="{{ member.active }}" style="color: inherit;">
                 <!-- BODY -->
                 <div class="flex-col justify-content:space-between flex-grow">
                     <div class="flex-row gap padded justify-content:space-between align-items:center">
@@ -103,6 +105,7 @@ eleventyComputed:
 
     <div>
         <h2 id="activiteit" class="capitalize-first" data-i18n="plenaryActivity">Activiteit (plenaire vergaderingen)</h2>
+        <p>Het parlementair werk van een fractie bestaat deels uit mondelinge vragen die de leden stellen tijdens de plenaire vergaderingen, en ook uit voorstellen die leden van de fractie indienen.</p>
         <p>Bekijk al het parlementair werk van de fractie {{ fraction.name | normaliseFraction }} rond een specifiek onderwerp.</p>
         {{ activityTabs({
             questions: fraction.questions,

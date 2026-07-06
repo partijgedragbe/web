@@ -14,7 +14,7 @@ export function meetingDescription(meeting) {
   const uniqueTopics = [...new Set(topics)].filter(Boolean).slice(0, 3);
 
   const topicPart = uniqueTopics.length > 0
-    ? `kwamen onder meer ${naturalList(uniqueTopics)} aan bod`
+    ? `over ${naturalList(uniqueTopics)}`
     : null;
 
   const extraParts = [];
@@ -36,7 +36,7 @@ export function meetingDescription(meeting) {
   }
 
   const extraPart = extraParts.length
-    ? `werden ${naturalList(extraParts)} besproken`
+    ? `over ${naturalList(extraParts)}`
     : null;
 
   if (!topicPart && !extraPart) {
@@ -44,15 +44,15 @@ export function meetingDescription(meeting) {
   }
 
   if (topicPart && extraPart) {
-    return `In deze vergadering ${topicPart}. Daarnaast ${extraPart}.`;
+    return `Vergadering ${topicPart}. Daarnaast ${extraPart}.`;
   }
 
   if (topicPart) {
-    return `Tijdens deze plenaire vergadering ${topicPart}.`;
+    return `Vergadering ${topicPart}.`;
   }
 
   // only extraPart
-  return `Tijdens deze plenaire vergadering ${extraPart}.`;
+  return `Vergadering ${extraPart}.`;
 }
 
 function cleanTopic(topic) {
