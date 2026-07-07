@@ -35,9 +35,7 @@ export function meetingDescription(meeting) {
     );
   }
 
-  const extraPart = extraParts.length
-    ? `over ${naturalList(extraParts)}`
-    : null;
+  const extraPart = extraParts.length ? `met ${naturalList(extraParts)}` : null;
 
   if (!topicPart && !extraPart) {
     return "Tijdens deze plenaire vergadering werden geen vragen, voorstellen, stemming of mededelingen besproken maar werd wel andere inhoud besproken.";
@@ -51,8 +49,7 @@ export function meetingDescription(meeting) {
     return `Vergadering ${topicPart}.`;
   }
 
-  // only extraPart
-  return `Vergadering ${extraPart}.`;
+  return `Plenaire vergadering ${extraPart}.`;
 }
 
 function cleanTopic(topic) {

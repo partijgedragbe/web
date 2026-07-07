@@ -8,7 +8,7 @@ pagination:
     addAllPagesToCollections: true
 eleventyComputed:
     title: "Plenaire naamstemming {{ vote.vote_id }} op {{ vote.date | date }}"
-    description: "Volg naamstemming {{ vote.vote_id }}: bekijk resultaten per fractie en per kamerlid."
+    description: "Volg naamstemming {{ vote.vote_id }} tijdens vergadering {{ vote.meeting_id }}: bekijk resultaten per fractie en per kamerlid."
     i18nHeader: "voteHeader"
     i18nHeaderVars: {
         title: "{{ vote.title_nl }}"
