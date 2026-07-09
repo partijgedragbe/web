@@ -109,15 +109,15 @@ export default async function () {
       });
 
       const summaryByDossier = Object.fromEntries(
-        summaryRows.map((r) => [r[5], r[1]]),
+        summaryRows.map((r) => [r[6], r[1]]),
       );
 
       const titleByDossier = Object.fromEntries(
-        summaryRows.map((r) => [r[5], r[2]]),
+        summaryRows.map((r) => [r[6], r[3]]),
       );
 
       const descriptionByDossier = Object.fromEntries(
-        summaryRows.map((r) => [r[5], r[3]]),
+        summaryRows.map((r) => [r[6], r[4]]),
       );
 
       const groupArgumentsByFraction = (args) => {
