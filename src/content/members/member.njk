@@ -8,7 +8,7 @@ pagination:
     alias: member
     addAllPagesToCollections: true
 eleventyComputed:
-    title: "{{ member.first_name }} {{ member.last_name }} ({{ member.fraction | normaliseFraction }})"
+    title: "Kamerlid {{ member.first_name }} {{ member.last_name }} ({{ member.fraction | normaliseFraction }})"
     description: "Stemgedrag van {{ member.first_name }} {{ member.last_name }}, parlementslid voor {{ member.fraction | normaliseFraction }}. Bekijk mondelinge vragen, stemmingen en ingediende dossiers."
     i18nHeader: "memberHeader"
     i18nHeaderVars: {
