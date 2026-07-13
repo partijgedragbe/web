@@ -47,6 +47,23 @@
     <span class="dot neutral"></span>
 </div>
 
+<!-- INSTAGRAM FOLLOW CARD -->
+<a href="https://instagram.com/partijgedragbe" target="_blank" rel="noopener noreferrer"
+   class="card flex-row align-center space-between padding" style="margin-top: 1rem;">
+    <div class="flex-row align-items:center gap">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <div class="flex-col">
+            <p class="bold" data-i18n="instagramFollowTitle">Volg ons op Instagram</p>
+            <p data-i18n="instagramFollowSubtitle">Blijf op de hoogte van nieuwe dossiers in het Belgische parlement.</p>
+        </div>
+    </div>
+    {% lucide "chevron-right" %}
+</a>
+
 <script>
     const row = document.querySelector('.swipeable-row');
     const dots = document.querySelectorAll('.dot');
