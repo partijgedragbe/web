@@ -8,6 +8,8 @@ i18nHeader: "governmentHeader"
 i18nSubheader: "governmentSubheader"
 ---
 
+{%- from "components/json-ld.njk" import jsonLd -%}
+
 <section id="government">
     <div class="item-grid-2">
         {% for name, mandates in functions %}
@@ -20,6 +22,26 @@ i18nSubheader: "governmentSubheader"
                 <p>{{ active.function }}</p>
                 <a href="/fractions/{{ active.fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ active.fraction }}</a>
             </div>
+
+            <!-- STRUCTURED DATA -->
+            {% set personSchema = {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": name,
+                "jobTitle": active.function,
+                "memberOf": [
+                    {
+                        "@type": "GovernmentOrganization",
+                        "name": "Federale Regering van België"
+                    },
+                    {
+                        "@type": "Organization",
+                        "name": active.fraction | normaliseFraction,
+                        "url": "https://partijgedrag.be/fractions/" + (active.fraction | slugify) + "/"
+                    }
+                ]
+            } %}
+            {{ jsonLd(personSchema) }}
         {% endif %}
         {% endfor %}
     </div>

@@ -1,5 +1,10 @@
 {% set crumbs = page.url | breadcrumbs %}
 
+{%- from "components/json-ld.njk" import jsonLd -%}
+{% if crumbs.length > 0 %}
+{{ jsonLd(crumbs | breadcrumbJsonLd) }}
+{% endif %}
+
 <section id="breadcrumbs">
     <header class="center-grid">
         <div class="center-grid-content">

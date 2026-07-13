@@ -14,6 +14,38 @@
 <meta name="google" content="nositelinkssearchbox">
 <link rel="canonical" href="https://partijgedrag.be{{ page.url }}" />
 
+<!-- STRUCTURED DATA (JSON-LD) -->
+{%- from "components/json-ld.njk" import jsonLd -%}
+{% set organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://partijgedrag.be/#organization",
+    "name": "Partijgedrag",
+    "url": "https://partijgedrag.be/",
+    "logo": "https://partijgedrag.be/web-app-manifest-512x512.png",
+    "sameAs": [
+        "https://bsky.app/profile/partijgedrag.be",
+        "https://instagram.com/partijgedragbe"
+    ]
+} %}
+{{ jsonLd(organizationSchema) }}
+{% set websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://partijgedrag.be/#website",
+    "url": "https://partijgedrag.be/",
+    "name": "Partijgedrag.be",
+    "description": "Volg het stemgedrag van Belgische partijen en parlementsleden in de Kamer van Volksvertegenwoordigers.",
+    "inLanguage": ["nl", "fr", "en"],
+    "publisher": { "@id": "https://partijgedrag.be/#organization" }
+} %}
+{{ jsonLd(websiteSchema) }}
+<!--
+  Note: no WebSite `potentialAction` (SearchAction) is included on purpose.
+  Adding one is what makes Google eligible to show the sitelinks search box,
+  which this site explicitly opts out of above via <meta name="google" content="nositelinkssearchbox">.
+-->
+
 <!-- OPEN GRAPH PROTOCOL -->
 <meta property="og:url" content="https://partijgedrag.be{{ page.url }}"">
 <meta property="og:title" content="{{ title }}">

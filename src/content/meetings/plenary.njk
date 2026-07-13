@@ -26,9 +26,40 @@ eleventyComputed:
 {%- from "components/proposition-card.njk" import propositionCard -%}
 {%- from "components/notice-card.njk" import noticeCard -%}
 {%- from "components/vote-card.njk" import voteCard -%}
+{%- from "components/json-ld.njk" import jsonLd -%}
 
 <!-- VARIABLES -->
 {% set document_id = "IP" + (meeting.meeting_id | padLeft(3, '0')) + "X" %}
+
+<!-- STRUCTURED DATA -->
+{% set eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Plenaire vergadering van de Kamer van Volksvertegenwoordigers op " + (meeting.date | date),
+    "description": meeting | meetingDescription,
+    "startDate": (meeting.date | isoDate) + "T" + (meeting.start_time | replace('h', ':')),
+    "endDate": (meeting.date | isoDate) + "T" + (meeting.end_time | replace('h', ':')),
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+        "@type": "Place",
+        "name": "Paleis der Natie",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Natieplein 2",
+            "addressLocality": "Brussel",
+            "postalCode": "1008",
+            "addressCountry": "BE"
+        }
+    },
+    "organizer": {
+        "@type": "GovernmentOrganization",
+        "name": "Belgische Kamer van Volksvertegenwoordigers",
+        "url": "https://www.dekamer.be"
+    },
+    "url": "https://partijgedrag.be/sessions/" + meeting.session_id + "/meetings/p" + meeting.meeting_id + "/"
+} %}
+{{ jsonLd(eventSchema) }}
 
 <!-- PAGEFIND METADATA -->
 <span style="display:none" data-pagefind-meta="title">Plenaire vergadering op {{ meeting.date | date }} ({{ document_id }})</span>

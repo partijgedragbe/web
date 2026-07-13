@@ -8,6 +8,57 @@ i18nHeader: "aboutHeader"
 i18nSubheader: "aboutSubheader"
 ---
 
+{%- from "components/json-ld.njk" import jsonLd -%}
+
+<!-- STRUCTURED DATA -->
+{% set faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Wat is partijgedrag.be?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Partijgedrag heeft als doel de werking van de Belgische kamer te verduidelijken en overzichtelijker te maken."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Waar komt de informatie vandaan?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "De officiële website dekamer.be van de overheid publiceert info over de werking van de Belgische Kamer van Volksvertegenwoordigers. Deze info is vaak verspreid over meerdere pagina's, moeilijk te verstaan en/of onoverzichtelijk. Om de werking van De Kamer transparanter te maken, verzamelt partijgedrag deze info op de site waar u zich nu op bevindt."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Gebruik van artificiële intelligentie",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sommige pagina's hebben de optie om een 'beknopte versie' weer te geven. Deze versie toont teksten die zijn samengevat met behulp van artificiële intelligentie. De samengevatte teksten zijn geen uitspraken van echte mensen; de tekst kan foutief zijn en/of aan nuanceverlies lijden ten opzichte van de originele tekst. Alle samengevatte tekst wordt onderlijnd in het paars of op een andere manier duidelijk gemaakt."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Ik heb een fout gezien op partijgedrag.be of ik denk dat de data niet correct is",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Laat dit weten via de feedbackpagina op partijgedrag.be/feedback/."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Ik heb een idee over hoe deze site verbeterd zou kunnen worden",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Laat dit weten via de feedbackpagina op partijgedrag.be/feedback/."
+            }
+        }
+    ]
+} %}
+{{ jsonLd(faqSchema) }}
+
 <section id="about">
     <!-- ABOUT -->
     <p>

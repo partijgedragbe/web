@@ -23,9 +23,28 @@ eleventyComputed:
 
 <!-- COMPONENTS -->
 {%- from "components/vote-card.njk" import voteCard -%}
+{%- from "components/json-ld.njk" import jsonLd -%}
 
 <!-- VARIABLES -->
 {% set document_id = "56K" + (dossier.dossier_id | padLeft(4, '0')) %}
+
+<!-- STRUCTURED DATA -->
+{% set legislationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Legislation",
+    "name": dossier.summarizedTitle or dossier.title,
+    "legislationIdentifier": document_id,
+    "description": dossier.summarizedDescription or dossier.summary or "",
+    "datePublished": dossier.submission_date | isoDate,
+    "inLanguage": "nl",
+    "url": "https://partijgedrag.be/sessions/" + dossier.session_id + "/dossiers/" + dossier.dossier_id + "/",
+    "legislationJurisdiction": {
+        "@type": "GovernmentOrganization",
+        "name": "Belgische Kamer van Volksvertegenwoordigers",
+        "url": "https://www.dekamer.be"
+    }
+} %}
+{{ jsonLd(legislationSchema) }}
 
 <!-- PAGEFIND METADATA -->
 <span style="display:none" data-pagefind-meta="title">Dossier ingediend op {{ dossier.submission_date | date }} ({{ document_id }})</span>

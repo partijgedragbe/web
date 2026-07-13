@@ -4,6 +4,39 @@ sitemap: true
 templateEngineOverride: njk,md
 ---
 
+{%- from "components/json-ld.njk" import jsonLd -%}
+
+<!-- STRUCTURED DATA -->
+{% set blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description or subtitle or "",
+    "url": "https://partijgedrag.be" + page.url,
+    "datePublished": page.date | isoDate,
+    "dateModified": page.date | isoDate,
+    "inLanguage": "nl",
+    "author": {
+        "@type": "Organization",
+        "name": "Partijgedrag",
+        "url": "https://partijgedrag.be/"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Partijgedrag",
+        "url": "https://partijgedrag.be/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://partijgedrag.be/web-app-manifest-512x512.png"
+        }
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://partijgedrag.be" + page.url
+    }
+} %}
+{{ jsonLd(blogPostingSchema) }}
+
 {% include "components/page-header.njk" %}
 
 <main class="center-grid">

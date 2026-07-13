@@ -1,0 +1,10 @@
+{#
+  Renders a schema.org object as a JSON-LD <script> tag.
+  Null/undefined/empty fields are stripped automatically so callers can
+  build objects with optional properties without extra `if` checks.
+#}
+{% macro jsonLd(data) %}
+{% if data %}
+<script type="application/ld+json">{{ data | compactJsonLd | dump | safe }}</script>
+{% endif %}
+{% endmacro %}

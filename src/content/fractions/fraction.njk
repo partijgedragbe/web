@@ -24,6 +24,21 @@ eleventyComputed:
 {%- from "components/proposition-card.njk" import propositionCard -%}
 {%- from "components/question-card.njk" import questionCard -%}
 {%- from "components/activity-tabs.njk" import activityTabs -%}
+{%- from "components/json-ld.njk" import jsonLd -%}
+
+<!-- STRUCTURED DATA -->
+{% set fractionSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": fraction.name | normaliseFraction,
+    "url": "https://partijgedrag.be/fractions/" + (fraction.name | slugify) + "/",
+    "memberOf": {
+        "@type": "GovernmentOrganization",
+        "name": "Belgische Kamer van Volksvertegenwoordigers",
+        "url": "https://www.dekamer.be"
+    }
+} %}
+{{ jsonLd(fractionSchema) }}
 
 <!-- PAGEFIND METADATA -->
 <span style="display:none" data-pagefind-meta="title">{{ fraction.name | normaliseFraction }}</span>

@@ -29,6 +29,26 @@ eleventyComputed:
 {%- from "components/proposition-card.njk" import propositionCard -%}
 {%- from "components/question-card.njk" import questionCard -%}
 {%- from "components/activity-tabs.njk" import activityTabs -%}
+{%- from "components/json-ld.njk" import jsonLd -%}
+
+<!-- STRUCTURED DATA -->
+{% set personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": name,
+    "givenName": member.first_name,
+    "familyName": member.last_name,
+    "url": "https://partijgedrag.be/members/" + (member.first_name | slugify) + "-" + (member.last_name | slugify) + "/",
+    "jobTitle": "Lid van de Kamer van Volksvertegenwoordigers",
+    "birthDate": member.date_of_birth | isoDate,
+    "birthPlace": member.place_of_birth or "",
+    "memberOf": {
+        "@type": "Organization",
+        "name": member.fraction | normaliseFraction,
+        "url": "https://partijgedrag.be/fractions/" + (member.fraction | slugify) + "/"
+    }
+} %}
+{{ jsonLd(personSchema) }}
 
 <!-- PAGEFIND METADATA -->
 <span style="display:none" data-pagefind-meta="title, fraction:{{ member.fraction | normaliseFraction }}">{{ member.first_name }} {{ member.last_name }}</span>

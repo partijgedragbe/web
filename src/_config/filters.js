@@ -711,4 +711,72 @@ export default function (eleventyConfig) {
 
     return itemCount;
   });
+
+  // Normalizes a Date object or date-like string into an ISO "yyyy-MM-dd"
+  // string, for use in structured data (JSON-LD) fields.
+  eleventyConfig.addFilter("isoDate", function (value) {
+    if (!value) return "";
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toISOString().slice(0, 10);
+  });
+
+  // Recursively strips null/undefined/empty values from a JSON-LD object so
+  // optional schema.org fields can be included unconditionally in templates.
+  eleventyConfig.addFilter("compactJsonLd", function compactJsonLd(value) {
+    if (Array.isArray(value)) {
+      return value
+        .map(compactJsonLd)
+        .filter((v) => v !== null && v !== undefined);
+    }
+    if (value && typeof value === "object") {
+      const out = {};
+      for (const [key, raw] of Object.entries(value)) {
+        const cleaned = compactJsonLd(raw);
+        const isEmptyObject =
+          cleaned &&
+          typeof cleaned === "object" &&
+          !Array.isArray(cleaned) &&
+          Object.keys(cleaned).length === 0;
+        const isEmptyArray = Array.isArray(cleaned) && cleaned.length === 0;
+        if (
+          cleaned !== null &&
+          cleaned !== undefined &&
+          cleaned !== "" &&
+          !isEmptyObject &&
+          !isEmptyArray
+        ) {
+          out[key] = cleaned;
+        }
+      }
+      return out;
+    }
+    return value;
+  });
+
+  // Builds a schema.org BreadcrumbList from the `breadcrumbs` filter's output.
+  eleventyConfig.addFilter("breadcrumbJsonLd", function (crumbs) {
+    if (!Array.isArray(crumbs)) return null;
+
+    const itemListElement = [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://partijgedrag.be/",
+      },
+      ...crumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 2,
+        name: crumb.name,
+        item: `https://partijgedrag.be${crumb.url}/`,
+      })),
+    ];
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement,
+    };
+  });
 }
