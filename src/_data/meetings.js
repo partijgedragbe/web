@@ -386,16 +386,19 @@ export default async function () {
             ...firstVote.no_members,
             ...firstVote.abstain_members,
           ].map((m) => m.name));
-
           meeting.attendance = {
             count: yes + no + abstain,
             ratio: (yes + no + abstain) / 150,
           };
+          meeting.attendees = activeMembers
+            .filter((m) => presentNames.has(m.name))
+            .sort((a, b) => a.fraction.localeCompare(b.fraction));
           meeting.absentees = activeMembers
             .filter((m) => !presentNames.has(m.name))
             .sort((a, b) => a.fraction.localeCompare(b.fraction));
         } else {
           meeting.attendance = { count: 0, ratio: 0 };
+          meeting.attendees = [];
           meeting.absentees = [];
         }
       });

@@ -1006,6 +1006,9 @@ a {
     position: sticky;
     top: 2rem;
     align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 @scope (#table-of-contents) {
@@ -1037,6 +1040,52 @@ a {
 
     a:hover {
         font-weight: bold;
+    }
+}
+
+@scope (#attendance-summary) {
+    h2 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+    summary {
+        cursor: pointer;
+        list-style: none;
+        font-weight: normal;
+    }
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+    li {
+        font-size: small;
+    }
+    ul {
+        margin: 0.6rem 0 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        max-height: 16rem;
+        overflow-y: auto;
+    }
+    .attendance-dot {
+        display: inline-block;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+    .attendance-dot--present {
+        background-color: var(--color-on-positive);
+    }
+    .attendance-dot--absent {
+        background-color: #95a5a6;
     }
 }
 

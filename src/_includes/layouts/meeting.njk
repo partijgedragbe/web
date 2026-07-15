@@ -11,11 +11,45 @@ layout: layouts/base.njk
         </article>
 
         <aside id="table-of-contents">
-
             <nav>
                 <h2>Inhoud</h2>
                 {{ content | toc | safe }}
             </nav>
+
+            {% if meeting.allVotes.length > 0 %}
+                <section id="attendance-summary" class="card padded flex-col gap">
+                    <h2 class="capitalize-first" data-i18n="attendance">Aanwezigheid</h2>
+                    <details class="attendance-group">
+                        <summary class="flex-row align-items:center justify-content:space-between gap-small">
+                            <div class="flex-row gap-small align-items:center">
+                                <span class="attendance-dot attendance-dot--present"></span>
+                                <span>{{ meeting.attendance.count }} aanwezig</span>
+                            </div>
+                            {% lucide "circle-plus" %}
+                        </summary>
+                        <ul>
+                            {% for member in meeting.attendees %}
+                            <li><a href="/members/{{ member.name | slugify }}/">{{ member.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                    <details class="attendance-group">
+                        <summary class="flex-row align-items:center justify-content:space-between gap-small">
+                            <div class="flex-row gap-small align-items:center">
+                                <span class="attendance-dot attendance-dot--absent"></span>
+                                <span>{{ meeting.absentees.length }} afwezig</span>
+                            </div>
+                            {% lucide "circle-plus" %}
+                        </summary>
+                        <p>De volgende {{ meeting.absentees.length }} kamerleden waren afwezig bij tenminste de eerste naamstemming. Het is mogelijk dat deze kamerleden alsnog aanwezig waren vanaf de tweede naamstemming of later. Het is ook mogelijk dat de kamerleden uitgesloten waren bij de eerste stemming voor een legitieme reden.</p>
+                        <ul>
+                            {% for absentee in meeting.absentees %}
+                            <li><a href="/members/{{ absentee.name | slugify }}/">{{ absentee.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </section>
+            {% endif %}
         </aside>
     </div>
 </main>

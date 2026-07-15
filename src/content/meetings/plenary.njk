@@ -87,35 +87,6 @@ eleventyComputed:
                     <p>
                         {{ meeting | meetingDescription }}
                     </p>
-
-                    <!-- ATTENDANCE -->
-                    {% if  meeting.allVotes.length > 0 %}
-                        {% set attendance = meeting.attendance %}
-                        {% set attendanceColor = "var(--color-on-negative)" %}
-                        {% if attendance.ratio >= 0.85 %}
-                        {% set attendanceColor = "var(--color-on-positive)" %}
-                        {% elif attendance.ratio >= 0.65 %}
-                        {% set attendanceColor = "var(--color-on-warning)" %}
-                        {% endif %}
-
-                        <div class="flex-row align-items:center justify-content:space-between">
-                            <p class="bold capitalize-first" data-i18n="attendance"></p>
-                            {% if  meeting.allVotes.length > 0 %}
-                            <p>{{ attendance.count }}/150 ({{ (attendance.ratio * 100) | round(0, 'floor') }}%)</p>
-                            {% else %}
-                            <p>onbekend</p>
-                            {% endif %}
-                        </div>
-
-                        <div class="progress-bar rounded">
-                            <div style="
-                                    width: {{ (attendance.ratio * 100) | round(0, 'floor') }}%;
-                                    height: 100%;
-                                    background-color: {{ attendanceColor }};
-                                ">
-                            </div>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
 
@@ -135,61 +106,14 @@ eleventyComputed:
                             <span class="text-muted capitalize-first"><span data-i18n="from">van</span> {{ meeting.start_time }} <span data-i18n="until"></span> {{ meeting.end_time }} ({{ meeting.start_time | duration(meeting.end_time)}})</span>
                         </div>
                     </div>
-
-                    <div class="flex-row flex-wrap gap align-items:center">
-                        <!-- QUESTIONS -->
-                        <div class="flex-row align-items:center">
-                            <span class="icon-muted">{% icon "lucide:message-circle-question" %}</span>
-                            <span class="text-muted">{{ meeting.questions.length }} {{ 'vraag' if meeting.questions.length == 1 else 'vragen' }}</span>
-                        </div>
-
-                        <!-- PROPOSITIONS -->
-                        <div class="flex-row align-items:center">
-                            <span class="icon-muted">{% icon "lucide:lightbulb" %}</span>
-                            <span class="text-muted">{{ meeting.propositions.length }} {{ 'voorstel' if meeting.propositions.length == 1 else 'voorstellen' }}</span>
-                        </div>
-
-                        <!-- VOTES -->
-                        <div class="flex-row align-items:center">
-                            <span class="icon-muted">{% icon "lucide:vote" %}</span>
-                            <span class="text-muted">{{ meeting.allVotes.length }} {{ 'stemming' if meeting.allVotes.length == 1 else 'stemmingen' }}</span>
-                        </div>
-
-                        <!-- NOTICES -->
-                        <div class="flex-row align-items:center">
-                            <span class="icon-muted">{% icon "lucide:message-square-text" %}</span>
-                            <span class="text-muted">{{ meeting.notices.length }} {{ 'mededeling' if meeting.notices.length == 1 else 'mededelingen' }}</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ABSENTEES -->
-    {% if meeting.absentees.length == 0 %}
-    {% else %}
-    {% if meeting.absentees.length == 150 %}
-    <h2 id="afwezigen" class="capitalize-first" data-i18n="absentees">Afwezigen</h2>
-    Tenminste de eerste naamstemming was anoniem. Hierdoor kan niet geschat worden welke kamerleden afwezig waren.
-    {% else %}
-    <h2 id="afwezigen" class="capitalize-first" data-i18n="absentees">Afwezigen</h2>
-    <p>De volgende {{ meeting.absentees.length }} kamerleden waren afwezig bij tenminste de eerste naamstemming. Het is mogelijk dat deze kamerleden alsnog aanwezig waren vanaf de tweede naamstemming of later. Het is ook mogelijk dat de kamerleden uitgesloten waren bij de eerste stemming voor een legitieme reden.</p>
-    <p>
-        {% for absentee in meeting.absentees %}
-        {% set fraction = absentee.fraction | lower %}
-        {% set primaryColor = fractionColors[fraction].primary or '#95a5a6' %}
-        {% set secondaryColor = fractionColors[fraction].secondary or '#95a5a6' %}
-        <a href="/fractions/{{ absentee.fraction | slugify }}/"><span class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ absentee.fraction | normaliseFraction }}</span></a>
-        <span ><a href="/members/{{ absentee.name | slugify }}/">{{ absentee.name }}</a></span><br>
-        {% endfor %}
-    </p>
-    {% endif %}
-    {% endif %}
-
     <section data-pagefind-body>
         <!-- QUESTIONS -->
-        <h2 id="mondelinge vragen" class="capitalize-first" data-i18n="oralQuestions">Mondelinge vragen</h2>
+        <h2 id="mondelinge-vragen" class="capitalize-first" data-i18n="oralQuestions">Mondelinge vragen ({{ meeting.questions.length }})</h2>
         {% if meeting.questions.length == 0 %}
             <p data-i18n="noQuestions">noQuestions</p>
         {% else %}
@@ -206,7 +130,7 @@ eleventyComputed:
         {% endif %}
 
         <!-- PROPOSITIONS -->
-        <h2 id="voorstellen" class="capitalize-first" data-18n="propositions">Voorstellen</h2>
+        <h2 id="voorstellen" class="capitalize-first" data-18n="propositions">Voorstellen ({{ meeting.propositions.length }})</h2>
         {% if meeting.propositions.length == 0 %}
             <p data-i18n="noPropositions">noPropositions</p>
         {% else %}
@@ -221,7 +145,7 @@ eleventyComputed:
         {% endif %}
 
         <!-- NOTICES -->
-        <h2 id="mededelingen" class="capitalize-first" data-18n="notices">Mededelingen</h2>
+        <h2 id="mededelingen" class="capitalize-first" data-18n="notices">Mededelingen ({{ meeting.notices.length }})</h2>
         {% if meeting.notices.length == 0 %}
             <p data-i18n="noNotices">noNotices</p>
         {% else %}
@@ -236,7 +160,7 @@ eleventyComputed:
         {% endif %}
 
         <!-- VOTES -->
-        <h2 id="stemmingen" class="capitalize-first" data-18n="votes">Stemmingen</h2>
+        <h2 id="stemmingen" class="capitalize-first" data-18n="votes">Stemmingen ({{ meeting.allVotes.length }})</h2>
         {% if meeting.allVotes.length == 0 %}
             <p data-i18n="noVotes">noVotes</p>
         {% else %}
