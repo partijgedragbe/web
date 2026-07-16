@@ -29,6 +29,35 @@ export default function (eleventyConfig) {
     }
   });
 
+
+  // Groups dossiers into "not yet voted" and "voted", sorted independently:
+  // unvoted dossiers first (sorted by submission_date), then voted dossiers
+  // (sorted by vote_date). `direction` applies to both groups.
+  eleventyConfig.addFilter(
+    "sortDossiers",
+    function (array, direction = "desc") {
+      if (!Array.isArray(array)) return [];
+
+      const byDate = (key) => (a, b) => {
+        const aVal = a?.[key];
+        const bVal = b?.[key];
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        const compare = new Date(aVal) - new Date(bVal);
+        return direction === "desc" ? -compare : compare;
+      };
+
+      const unvoted = array.filter((d) => !d.vote_date);
+      const voted = array.filter((d) => !!d.vote_date);
+
+      unvoted.sort(byDate("submission_date"));
+      voted.sort(byDate("vote_date"));
+
+      return [...unvoted, ...voted];
+    },
+  );
+
   eleventyConfig.addFilter("activePlenaries", function (meetings) {
     if (!Array.isArray(meetings)) return [];
 
