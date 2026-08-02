@@ -79,22 +79,32 @@
 
 .tooltip-text {
     visibility: hidden;
-    width: 28rem;
+    width: 26rem;
+    max-width: calc(100vw - 3rem);
     background-color: var(--color-on-surface);
     color: var(--color-surface);
     text-align: left;
     border-radius: 4px;
     padding: 0.6rem;
     position: absolute;
-    font-weight: normal;
     z-index: 1;
     top: 160%;
-    left: 65%;
-    margin-left: -65px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: normal;
 }
 
 .tooltip:hover .tooltip-text {
     visibility: visible;
+}
+
+@media (max-width: 600px) {
+    .tooltip-text {
+        width: min(28rem, calc(100vw - 2rem));
+        left: 50%;
+        margin-left: 0;
+        transform: translateX(-50%);
+    }
 }
 
 .category {
