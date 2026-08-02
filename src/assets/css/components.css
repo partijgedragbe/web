@@ -89,8 +89,8 @@
     position: absolute;
     z-index: 1;
     top: 160%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 40%;
+    transform: translateX(-40%);
     font-weight: normal;
 }
 
