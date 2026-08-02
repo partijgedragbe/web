@@ -79,8 +79,8 @@
 
 .tooltip-text {
     visibility: hidden;
-    width: 26rem;
-    max-width: calc(100vw - 3rem);
+    width: 20rem;
+    max-width: calc(100vw - 4rem);
     background-color: var(--color-on-surface);
     color: var(--color-surface);
     text-align: left;
