@@ -157,7 +157,11 @@ export default async function () {
         subdocuments: subdocumentsRows,
       } = await readParquets(connection, FILES);
 
-      // ── Lookup tables ──────────────────────────────────────────────────────
+      const session56Members = membersRows.filter(
+        (row) => String(row[1]) === "56",
+      );
+
+      // ── Lookup tables ───────────────────────────f───────────────────────────
 
       const summaryByHash = Object.fromEntries(
         plenaryQuestionDiscussionsSummariesRows.map((r) => [r[0], r[2]])
@@ -177,7 +181,7 @@ export default async function () {
         commissionMeetingsRows.map((r) => [`${r[0]}-${r[1]}`, r[2]]),
       );
       const fractionLookup = Object.fromEntries(
-        membersRows.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
+        session56Members.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
       );
 
       const dossierById = {};
@@ -198,7 +202,7 @@ export default async function () {
       // ── Build memberMap ────────────────────────────────────────────────────
 
       const memberMap = new Map();
-      membersRows.forEach((row) => {
+      session56Members.forEach((row) => {
         const key = toKey(`${row[2]} ${row[3]}`);
 
         if (!memberMap.has(key)) {
@@ -521,7 +525,7 @@ export default async function () {
       );
 
       return {
-        memberCount: membersRows.length,
+        memberCount: session56Members.length,
         members,
         ages: members.map((m) => m.age),
         fractions,
