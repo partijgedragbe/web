@@ -3,7 +3,7 @@ import { readParquets, withParquets } from "./lib/duckdb.js";
 const FILES = {
   dossiers: "src/data/sessions/56/dossiers.parquet",
   subdocuments: "src/data/sessions/56/subdocuments.parquet",
-  members: "src/data/sessions/56/members.parquet",
+  members: "src/data/members.parquet",
   votes: "src/data/sessions/56/plenary/votes.parquet",
   dossiersSummaryContent: "src/data/summaries/dossier_content.parquet",
   dossiersArgumentsContent: "src/data/summaries/dossier_arguments.parquet",

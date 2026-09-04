@@ -2,7 +2,7 @@ import { readParquets, withParquets } from "./lib/duckdb.js";
 
 const FILES = {
   commissions: "src/data/commissions.parquet",
-  members: "src/data/sessions/56/members.parquet",
+  members: "src/data/members.parquet",
 };
 
 const mapMembers = (str, fractionLookup) =>

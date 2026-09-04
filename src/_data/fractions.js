@@ -2,7 +2,7 @@ import { hashText } from "./lib/utils.js";
 import { readParquets, withParquets } from "./lib/duckdb.js";
 
 const FILES = {
-  members: "src/data/sessions/56/members.parquet",
+  members: "src/data/members.parquet",
   questions: "src/data/sessions/56/plenary/questions.parquet",
   propositions: "src/data/sessions/56/plenary/propositions.parquet",
   dossiers: "src/data/sessions/56/dossiers.parquet",
@@ -64,7 +64,7 @@ export default async function () {
       const fractions = {};
       const memberFractionMap = {};
 
-      members.forEach((row) => {
+      members.filter((row) => String(row[1]) === "56").forEach((row) => {
         const [
           memberId,
           sessionId,
@@ -75,16 +75,23 @@ export default async function () {
           lang,
           constituency,
           fraction,
+          memberFunction,
           email,
           active,
           start,
+          end,
         ] = row;
-        const key = `${firstName} ${lastName}`.trim().toLowerCase().replace(
-          /\s+/g,
-          "-",
-        );
+
+        const key = `${firstName} ${lastName}`
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, "-");
+
+        // Skip members without a fraction
+        if (!fraction) return;
 
         memberFractionMap[key] = fraction;
+
         if (!fractions[fraction]) {
           fractions[fraction] = {
             name: fraction,
@@ -93,7 +100,10 @@ export default async function () {
             questions: [],
           };
         }
+
         fractions[fraction].members.add({
+          member_id: memberId,
+          session_id: sessionId,
           first_name: firstName,
           last_name: lastName,
           active,
@@ -101,6 +111,10 @@ export default async function () {
           place_of_birth: pob,
           language: lang,
           constituency,
+          function: memberFunction,
+          email,
+          start,
+          end,
         });
       });
 

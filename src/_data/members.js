@@ -13,7 +13,7 @@ const topics = JSON.parse(
 );
 
 const FILES = {
-  members: "src/data/sessions/56/members.parquet",
+  members: "src/data/members.parquet",
   plenaryMeetings: "src/data/sessions/56/plenary/meetings.parquet",
   commissionMeetings: "src/data/sessions/56/commission/meetings.parquet",
   plenaryQuestions: "src/data/sessions/56/plenary/questions.parquet",
@@ -200,6 +200,7 @@ export default async function () {
       const memberMap = new Map();
       membersRows.forEach((row) => {
         const key = toKey(`${row[2]} ${row[3]}`);
+
         if (!memberMap.has(key)) {
           memberMap.set(key, {
             member_id: row[0],
@@ -209,11 +210,13 @@ export default async function () {
             place_of_birth: row[5],
             language: row[6],
             constituency: row[7],
-            sessions: new Set([row[1]]),
             fraction: row[8],
-            email: row[9],
-            active: row[10],
-            start_date: row[11],
+            function: row[9],
+            email: row[10],
+            active: row[11],
+            start_date: row[12],
+            end_date: row[13],
+            sessions: new Set([row[1]]),
             age: calcAge(row[4]),
             propositions: [],
             questions: [],
@@ -223,8 +226,14 @@ export default async function () {
           });
         } else {
           const m = memberMap.get(key);
+
           m.sessions.add(row[1]);
+
           if (m.language == null) m.language = row[6];
+          if (m.function == null) m.function = row[9];
+          if (m.email == null) m.email = row[10];
+          if (m.start_date == null) m.start_date = row[12];
+          if (m.end_date == null) m.end_date = row[13];
         }
       });
 
@@ -401,7 +410,7 @@ export default async function () {
         sessions: Array.from(m.sessions),
       }));
 
-      members.forEach((member) => {
+      members.filter((row) => String(row[1]) === "56").forEach((member) => {
         const eligibleVotes = votesRows.filter((r) =>
           new Date(r[3]) >= new Date(member.start_date)
         );

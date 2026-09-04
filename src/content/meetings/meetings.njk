@@ -217,19 +217,20 @@ i18nSubheader: "meetingsSubheader"
             .domain([0, d3.max(bins, d => d.length) / 2, d3.max(bins, d => d.length)])
             .range(["#c6e48b", "#7bc96f", "#196127"]);
 
-        const x = d3.scaleBand()
-            .domain(bins.map(d => d.x0))
-            .range([0, width])
-            .padding(0.1);
+        const x = d3.scaleLinear()
+            .domain([0, d3.max(durations) + 50])
+            .range([0, width]);
 
         g.append("g")
             .attr("transform", `translate(0, ${height})`)
             .call(d3.axisBottom(x)
-                .tickValues(bins.map(d => d.x0))
-                .tickFormat(d => `${Math.round(d / 60)}h`)
+                .ticks(Math.ceil(d3.max(durations) / 60))
+                .tickFormat(d => `${d / 60}h`)
             )
-            .call(g => g.select(".domain").remove())  // Re
-            .call(g => g.selectAll("text").style("font-size", "0.75rem").style("fill", "#333"));
+            .call(g => g.select(".domain").remove())
+            .call(g => g.selectAll("text")
+                .style("font-size", "0.75rem")
+                .style("fill", "#333"));
 
         g.append("g")
             .call(d3.axisLeft(y)
@@ -255,8 +256,8 @@ i18nSubheader: "meetingsSubheader"
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => x(d.x0) + x.bandwidth() * 0.5)
-            .attr("width", x.bandwidth())
+            .attr("x", d => x(d.x0))
+            .attr("width", d => x(d.x1) - x(d.x0))
             .attr("y", y(0))
             .attr("height", 0)
             .attr("rx", 4)

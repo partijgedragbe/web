@@ -5,7 +5,7 @@ const FILES = {
   propositions: "src/data/sessions/56/plenary/propositions.parquet",
   plenaryMeetings: "src/data/sessions/56/plenary/meetings.parquet",
   dossiers: "src/data/sessions/56/dossiers.parquet",
-  members: "src/data/sessions/56/members.parquet",
+  members: "src/data/members.parquet",
   plenaryQuestionDiscussionsSummaries:
     "src/data/summaries/plenary_question_discussions.parquet",
   commissionQuestionDiscussionsSummaries:
