@@ -58,8 +58,12 @@ export default async function () {
         dossiersArgumentsContent: argumentsRows,
       } = await readParquets(connection, FILES);
 
+      const session56Members = membersRows.filter(
+        (row) => String(row[1]) === "56",
+      );
+
       const fractionLookup = Object.fromEntries(
-        membersRows.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
+        session56Members.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
       );
 
       const votesByDossierAndDoc = {};

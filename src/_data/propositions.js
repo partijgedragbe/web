@@ -51,6 +51,10 @@ export default async function () {
           commissionQuestionTopicsSummariesRows,
       } = await readParquets(connection, FILES);
 
+      const session56Members = membersRows.filter(
+        (row) => String(row[1]) === "56",
+      );
+
       const summaryByHash = Object.fromEntries(
         plenaryQuestionDiscussionsSummariesRows.map((r) => [r[0], r[2]])
           .concat(
@@ -63,7 +67,7 @@ export default async function () {
       );
 
       const fractionLookup = Object.fromEntries(
-        membersRows.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
+        session56Members.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
       );
 
       const plenaryMeetingDateMap = new Map(
