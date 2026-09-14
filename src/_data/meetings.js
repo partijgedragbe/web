@@ -18,7 +18,7 @@ const FILES = {
     "src/data/summaries/plenary_question_topics.parquet",
   commissionQuestionTopicsSummaries:
     "src/data/summaries/commission_question_topics.parquet",
-  dossiers: "src/data/sessions/56/dossiers.parquet",
+  dossiers: "src/data/sessions/56/dossiers/dossiers.parquet",
 };
 
 const TIME_OF_DAY_ORDER = { evening: 0, afternoon: 1, morning: 2 };

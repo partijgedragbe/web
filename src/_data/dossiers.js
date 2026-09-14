@@ -1,8 +1,8 @@
 import { readParquets, withParquets } from "./lib/duckdb.js";
 
 const FILES = {
-  dossiers: "src/data/sessions/56/dossiers.parquet",
-  subdocuments: "src/data/sessions/56/subdocuments.parquet",
+  dossiers: "src/data/sessions/56/dossiers/dossiers.parquet",
+  subdocuments: "src/data/sessions/56/dossiers/subdocuments.parquet",
   members: "src/data/members.parquet",
   votes: "src/data/sessions/56/plenary/votes.parquet",
   dossiersSummaryContent: "src/data/summaries/dossier_content.parquet",
@@ -66,6 +66,7 @@ export default async function () {
         session56Members.map((r) => [`${r[2]} ${r[3]}`, r[8]]),
       );
 
+      // votes.parquet schema unchanged
       const votesByDossierAndDoc = {};
       votesRows.forEach((row) => {
         const docIdMatch = String(row[13]).match(/(\d+)$/);
@@ -97,18 +98,23 @@ export default async function () {
         });
       });
 
+      // subdocuments.parquet: 0 session_id, 1 dossier_id, 2 id, 3 document_date,
+      // 4 circulation_date, 5 type, 6 reading_phase, 7 authors, 8 file_url
       const subdocumentsByDossier = {};
       subdocumentsRows.forEach((row) => {
-        const dossierId = row[0];
+        const dossierId = row[1];
         if (!subdocumentsByDossier[dossierId]) {
           subdocumentsByDossier[dossierId] = [];
         }
         subdocumentsByDossier[dossierId].push({
-          id: row[1],
-          date: row[2],
-          type: row[3],
-          authors: parseAuthors(row[4], fractionLookup),
-          votes: votesByDossierAndDoc[`${dossierId}_${row[1]}`] ?? [],
+          id: row[2],
+          date: row[3],
+          circulationDate: row[4],
+          type: row[5],
+          readingPhase: row[6],
+          authors: parseAuthors(row[7], fractionLookup),
+          fileUrl: row[8],
+          votes: votesByDossierAndDoc[`${dossierId}_${row[2]}`] ?? [],
         });
       });
 
@@ -145,13 +151,16 @@ export default async function () {
         }),
       );
 
-      // Map dossiers.parquet rows to dossier object.
+      // dossiers.parquet: 0 session_id, 1 dossier_id, 2 last_updated, 3 title,
+      // 4 authors, 5 procedure_type, 6 urgency_requested, 7 submission_date,
+      // 8 end_date, 9 vote_date, 10 document_type, 11 status,
+      // 12 latest_adopted_text_url, 13 latest_report_url,
+      // 14 eurovoc_main_descriptor, 15 eurovoc_descriptors, 16 original_text_url
       const dossiers = dossiersRows.map((row) => {
         const subdocs = subdocumentsByDossier[row[1]] ?? [];
-        const voteDate = row[7];
-        const status = row[9];
+        const voteDate = row[9];
+        const status = row[11];
 
-        // Check if the vote we found matches the general status of the dossier.
         const voteMatchesStatusAndDate = (vote) => {
           if (!vote) return false;
           if (voteDate && vote.date !== voteDate) return false;
@@ -163,14 +172,12 @@ export default async function () {
 
         let plenaryVote = null;
 
-        // Accepted-text doc types, in priority order
         const acceptedTypes = [
           "AangenomenTekst",
           "ArtikelenBijEersteStemmingAangenomen",
           "VoorstelReglement",
         ];
 
-        // Try to find a vote on an accepted-type subdocument whose outcome matches status
         for (const type of acceptedTypes) {
           const matchingDocs = subdocs.filter((s) => s.type === type);
           for (const doc of matchingDocs) {
@@ -185,8 +192,6 @@ export default async function () {
           if (plenaryVote) break;
         }
 
-        // If still nothing, look up votes keyed to ALL subdocuments and pick the one
-        // whose outcome matches the dossier status (latest vote_id wins as tiebreak)
         if (!plenaryVote) {
           plenaryVote = subdocs
             .flatMap((s) => s.votes)
@@ -195,7 +200,6 @@ export default async function () {
             .at(0) ?? null;
         }
 
-        // Last resort: any vote, newest first
         if (!plenaryVote) {
           plenaryVote = subdocs
             .flatMap((s) => s.votes)
@@ -209,15 +213,20 @@ export default async function () {
           last_updated: row[2],
           title: row[3],
           authors: parseAuthors(row[4], fractionLookup),
-          submission_date: row[5],
-          end_date: row[6],
-          vote_date: row[7],
-          document_type: row[8],
-          status: row[9],
-          eurovoc_main_descriptor: row[12],
-          eurovoc_descriptors: row[13]
-            ? row[13].split(",").map((d) => d.trim()).filter(Boolean)
+          procedure_type: row[5],
+          urgency_requested: row[6],
+          submission_date: row[7],
+          end_date: row[8],
+          vote_date: row[9],
+          document_type: row[10],
+          status: row[11],
+          latest_adopted_text_url: row[12],
+          latest_report_url: row[13],
+          eurovoc_main_descriptor: row[14],
+          eurovoc_descriptors: row[15]
+            ? row[15].split(",").map((d) => d.trim()).filter(Boolean)
             : [],
+          original_text_url: row[16],
           subdocuments: subdocs,
           summary: summaryByDossier[row[1]] ?? null,
           summarizedTitle: titleByDossier[row[1]] ?? null,

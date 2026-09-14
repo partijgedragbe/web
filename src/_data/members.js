@@ -20,7 +20,7 @@ const FILES = {
   commissionQuestions: "src/data/sessions/56/commission/questions.parquet",
   commissions: "src/data/commissions.parquet",
   propositions: "src/data/sessions/56/plenary/propositions.parquet",
-  dossiers: "src/data/sessions/56/dossiers.parquet",
+  dossiers: "src/data/sessions/56/dossiers/dossiers.parquet",
   subdocuments: "src/data/sessions/56/subdocuments.parquet",
   votes: "src/data/sessions/56/plenary/votes.parquet",
   plenaryQuestionDiscussionsSummaries:
