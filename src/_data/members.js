@@ -21,7 +21,7 @@ const FILES = {
   commissions: "src/data/commissions.parquet",
   propositions: "src/data/sessions/56/plenary/propositions.parquet",
   dossiers: "src/data/sessions/56/dossiers/dossiers.parquet",
-  subdocuments: "src/data/sessions/56/subdocuments.parquet",
+  subdocuments: "src/data/sessions/56/dossiers/subdocuments.parquet",
   votes: "src/data/sessions/56/plenary/votes.parquet",
   plenaryQuestionDiscussionsSummaries:
     "src/data/summaries/plenary_question_discussions.parquet",
