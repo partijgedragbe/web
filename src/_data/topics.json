@@ -68,7 +68,6 @@
       "dermatoloog",
       "RIZIV",
       "diabetes",
-      "drugs",
       "ziekenhuis",
       "ziekenhuizen",
       "ziek",
@@ -160,6 +159,7 @@
       "klimaatverandering": [
         "hernieuwbare energie",
         "klimaat",
+        "hete zomer",
         "COP",
         "koolstoftaks",
         "biodiversiteit"
@@ -170,6 +170,9 @@
   },
   "economie en werk": {
     "keywords": [
+      "werkzoekenden",
+      "familiekrediet",
+      "economische",
       "loonkloof",
       "maaltijdcheques",
       "prijsindex",
@@ -267,6 +270,7 @@
   },
   "veiligheid, justitie en defensie": {
     "keywords": [
+      "drugscriminaliteit",
       "noodcentrale",
       "financieel parket",
       "justitiële",
@@ -297,6 +301,7 @@
       "gevangenis",
       "moord",
       "terreur",
+      "terrorist",
       "aanslagen",
       "geweld",
       "spiking",
