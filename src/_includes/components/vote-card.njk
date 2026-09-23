@@ -60,7 +60,7 @@
 
     {% if params.hideVoteLink !== "true"%}
     <!-- VOTE LINK -->
-    <a href="/sessions/{{ params.vote.session_id }}/meetings/p{{ params.vote.meeting_id }}/votes/{{ params.vote.vote_id }}/" class="flex-row justify-content:space-between card-section padded">
+    <a href="https://kamerlens.be/votes/{{ params.vote.session_id }}{{ params.vote.meeting_id }}-{{ params.vote.vote_id }}/" target="_blank" class="flex-row justify-content:space-between card-section padded">
         <p>Bekijk stemmingsdetails</p>
         {% lucide "chevron-right" %}
     </a>

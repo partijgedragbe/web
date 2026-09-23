@@ -166,7 +166,7 @@ eleventyComputed:
         {% else %}
             <p data-i18n="votesDescription">De voorstellen en wetsontwerpen die besproken werden tijdens deze vergadering en de bijbehorende stemmingen.</p>
             <ul class="flex-col gap padding:0">
-                {% for vote in meeting.votes %}
+                {% for vote in meeting.allVotes %}
                     {{ voteCard({ vote: vote, fractionColors: fractionColors, federalGovernment: federalGovernment }) }}
                 {% endfor %}
             </ul>
