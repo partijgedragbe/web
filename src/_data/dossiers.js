@@ -151,6 +151,8 @@ export default async function () {
         }),
       );
 
+      const DECIDED_STATUSES = ["Aangenomen", "Verworpen"];
+
       // dossiers.parquet: 0 session_id, 1 dossier_id, 2 last_updated, 3 title,
       // 4 authors, 5 procedure_type, 6 urgency_requested, 7 submission_date,
       // 8 end_date, 9 vote_date, 10 document_type, 11 status,
@@ -247,7 +249,7 @@ export default async function () {
             : null,
           plenaryVote,
         };
-      });
+      }).filter((d) => DECIDED_STATUSES.includes(d.status));
 
       return { dossiers };
     },
