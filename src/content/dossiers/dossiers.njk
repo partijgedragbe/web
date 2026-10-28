@@ -9,61 +9,52 @@ i18nHeader: "dossiersHeader"
 i18nSubheader: "dossiersSubheader"
 ---
 
-<section id="dossiers">
-    <!-- BENTO -->
-    <div class="bento">
-        <div class="card padded flex-col gap-small bento-item-1">
-            <h2>{{ dossiers.dossiers | length }}</h2>
-            <p data-i18n="dossiers">dossiers</p>
-        </div>
-    </div>
-
-    <h2 data-i18n="allDossiers" class="capitalize-first">Alle dossiers</h2>
-
-
-    <!-- GRID -->
-        <div class="item-grid">
-        {% for dossier in dossiers.dossiers | sortDossiers("desc") %}
-            <a class="card flex-col" href='/sessions/{{ dossier.session_id }}/dossiers/{{ dossier.dossier_id }}'>
-                <!-- HEADER -->
-                <div class="flex-row justify-content:space-between align-items:start">
-                    <div class="category capitalize-first" style="max-width:50%;" data-i18n="{{ dossier.document_type | lowercase }}"></div>
-                    <div class="flex-col align-items:end" style="padding: 0.4rem; padding-bottom: 0;">
-                        {% if dossier.vote_date %}
-                        {% if dossier.status == "Aangenomen" %}
-                        <p class="bold margin:0">Aangenomen op {{ dossier.vote_date | date }}</p>
-                        {% elseif dossier.status == "Verworpen" %}
-                        <p class="bold margin:0">Verworpen op {{ dossier.vote_date | date }}</p>
-                        {% else %}
-                        <p class="bold margin:0">{{ dossier.vote_date | date }}</p>
-                        {% endif %}
-                        {% else %}
-                        <p class="bold margin:0">Ingediend op {{ dossier.submission_date | date }}</p>
-                        {% endif %}
-                    </div>
+<section id="dossiers" class="flex-col gap">
+      <div class="item-grid">
+    {% for dossier in dossiers.dossiers | sortDossiers("desc") %}
+        <a class="card flex-col" href='/sessions/{{ dossier.session_id }}/dossiers/{{ dossier.dossier_id }}'>
+            <!-- HEADER -->
+            <div class="flex-row justify-content:space-between align-items:start">
+                <div class="category capitalize-first" style="max-width:50%;" data-i18n="{{ dossier.document_type | lowercase }}"></div>
+                <div class="flex-col align-items:end" style="padding: 0.4rem; padding-bottom: 0;">
+                    {% if dossier.vote_date %}
+                    {% if dossier.status == "Aangenomen" %}
+                    <p class="bold margin:0">Aangenomen op {{ dossier.vote_date | date }}</p>
+                    {% elseif dossier.status == "Verworpen" %}
+                    <p class="bold margin:0">Verworpen op {{ dossier.vote_date | date }}</p>
+                    {% else %}
+                    <p class="bold margin:0">{{ dossier.vote_date | date }}</p>
+                    {% endif %}
+                    {% else %}
+                    <p class="bold margin:0">Ingediend op {{ dossier.submission_date | date }}</p>
+                    {% endif %}
                 </div>
-                <!-- BODY -->
-                <div class="flex-col justify-content:space-between flex-grow">
-                    <div class="flex-row gap padded justify-content:space-between align-items:center">
-                        <div class="flex-col gap">
-                            <p>{{ dossier.title }}</p>
-                        </div>
-                        {% icon "lucide:chevron-right" %}
+            </div>
+            <!-- BODY -->
+            <div class="flex-col justify-content:space-between flex-grow">
+                <div class="flex-row gap padded justify-content:space-between align-items:center">
+                    <div class="flex-col gap">
+                        <p>
+                            <span class="{% if dossier.summarizedTitle %}hide-when-summary{% endif %}">
+                            {{ dossier.title }}
+                            </span>
+                            {% if dossier.summarizedTitle %}
+                            <span class="flex-row gap align-items:center summarized highlight show-when-summary">{{ dossier.summarizedTitle }} <span class="tooltip" style="height: 16px;">{% lucide "bot-message-square" %}<span class="tooltip-text" data-i18n="topicSummaryExplanation">summaryExplanation</span></span></span>
+                            {% endif %}
+                        </p>
                     </div>
-                    <div class="flex-row gap-small flex-wrap padded" style="margin-top: auto;">
-                        <!-- STATUS -->
-                        {% if dossier.status == "Aangenomen" %}
-                        <span class="badge on-positive" data-i18n="passed">passed</span>
-                        {% elseif dossier.status == "Verworpen" %}
-                        <span class="badge on-negative" data-i18n="failed">failed</span>
-                        {% endif%}
-                        <!-- SUMMARY -->
-                        {% if dossier.summary %}
-                        <span class="badge color-summarized" data-i18n="summarized">samengevat</span>
-                        {% endif %}
-                    </div>
+                    {% icon "lucide:chevron-right" %}
                 </div>
-            </a>
-        {% endfor %}
-        </div>
+                <div class="flex-row gap-small flex-wrap padded" style="margin-top: auto;">
+                    <!-- STATUS -->
+                    {% if dossier.status == "Aangenomen" %}
+                    <span class="badge on-positive" data-i18n="passed">passed</span>
+                    {% elseif dossier.status == "Verworpen" %}
+                    <span class="badge on-negative" data-i18n="failed">failed</span>
+                    {% endif%}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+      </div>
 </section>

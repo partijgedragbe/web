@@ -237,7 +237,7 @@ export default {
       "Details of the committee meeting on {date} ({time_of_day}), with agenda items discussed, questions and votes.",
     // DOSSIERS
     dossiersHeader: "Dossiers",
-    dossiersSubheader: "All dossiers of the Belgian Chamber.",
+    dossiersSubheader: "Dossiers of the Belgian Chamber.",
     // DOSSIER
     dossierHeader: "{title}",
     dossierSubHeader: "View everything about dossier {id}. {title}",
@@ -465,7 +465,7 @@ export default {
       "Détails de la réunion de commission du {date} ({time_of_day}), avec les points à l'ordre du jour discutés, les questions et les votes.",
     // DOSSIERS
     dossiersHeader: "Dossiers",
-    dossiersSubheader: "Tous les dossiers de la Chambre belge.",
+    dossiersSubheader: "Dossiers de la Chambre belge.",
     // DOSSIER
     dossierHeader: "{title}",
     dossierSubHeader: "Consultez tout ce qui concerne le dossier {id}. {title}",
@@ -734,7 +734,7 @@ export default {
       "Details van de commisievergadering op {date} ({time_of_day}), met besproken agendapunten, vragen en stemmingen.",
     // DOSSIERS
     dossiersHeader: "Dossiers",
-    dossiersSubheader: "Alle dossiers van de Belgische Kamer.",
+    dossiersSubheader: "Dossiers van de Belgische Kamer.",
     // DOSSIER
     dossierHeader: "{title}",
     dossierSubHeader: "Bekijk alles over dossier {id}. {title}",

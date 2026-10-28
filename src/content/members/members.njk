@@ -9,43 +9,6 @@ i18nSubheader: "membersSubheader"
 ---
 
 <section id="members">
-    <!-- BENTO -->
-    <div class="bento">
-        <div class="card padded flex-col gap-small bento-item-1">
-            <h2>{{ members.members | filter("active", "true") | length }}</h2>
-            <p data-i18n="chamberMembers">chamberMembers</p>
-        </div>
-        <div class="card padded flex-col gap-small bento-item-1">
-            <h2>{{ members.members | map("fraction") | unique | length }}</h2>
-            <p data-i18n="fractions">fractions</p>
-        </div>
-        <div class="card padded flex-col gap-small bento-item-1">
-            <h2>{{ (members.members | youngest).date_of_birth | age }}
-                <span data-i18n="age">jaar</span>
-            </h2>
-            <p>{{ (members.members | youngest).first_name }}
-                {{ (members.members | youngest).last_name }},
-                <span data-i18n="youngestMember">jongste lid</span>
-            </p>
-        </div>
-        <div class="card padded flex-col gap-small bento-item-1">
-            <h2>{{ (members.members | oldest).date_of_birth | age }}
-                <span data-i18n="age">jaar</span>
-            </h2>
-            <p>{{ (members.members | oldest).first_name }}
-                {{ (members.members | oldest).last_name }},
-                <span data-i18n="oldestMember">oudste lid</span>
-            </p>
-        </div>
-
-         <div class="card padded flex-col gap-small bento-item-2">
-            <h3 style="margin-top: 0; margin-bottom: 0.4rem;" class="capitalize" data-i18n="ageDistributionTitle">Leeftijdverdeling</h3>
-            <p data-i18n="ageDistributionDescription">Wat is de leeftijdsverdeling van de kamerleden?</p>
-            <svg id="ageHistogram" style="margin-top: 1rem;"></svg>
-        </div>
-    </div>
-
-    <h2 class="capitalize-first" data-i18n="allChamberMembers">Alle leden</h2>
     <p data-i18n="memberSearchInstruction">Zoek op naam, filter op fractie, kieskring of status.</p>
 
     <!-- FILTERS -->
