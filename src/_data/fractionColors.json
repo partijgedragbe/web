@@ -3,7 +3,7 @@
     "primary": "#d70000",
     "secondary": "#ff4d4d"
   },
-  "ps": {
+  "PS": {
     "primary": "#ff0000",
     "secondary": "#ffdfdf"
   },
@@ -11,7 +11,7 @@
     "primary": "#02ad5b",
     "secondary": "#d4eed3"
   },
-  "ecolo-groen": {
+  "Ecolo-Groen": {
     "primary": "#02ad5b",
     "secondary": "#d4eed3"
   },
@@ -19,7 +19,7 @@
     "primary": "#92b70e",
     "secondary": "#b3d800"
   },
-  "les engagés": {
+  "Les Engagés": {
     "primary": "#00c7b6",
     "secondary": "#cdf2e5"
   },
@@ -27,7 +27,7 @@
     "primary": "#000000",
     "secondary": "#f1f1f1"
   },
-  "vb": {
+  "VB": {
     "primary": "#000000",
     "secondary": "#bebebe"
   },
@@ -59,11 +59,11 @@
     "primary": "#0e5b83",
     "secondary": "#d0ebf5"
   },
-  "anders.": {
+  "Anders.": {
     "primary": "#0e5b83",
     "secondary": "#d0ebf5"
   },
-  "mr": {
+  "MR": {
     "primary": "#002df7",
     "secondary": "#dbe3ff"
   },
@@ -71,19 +71,19 @@
     "primary": "#fcba02",
     "secondary": "#fff8e4"
   },
-  "n-va": {
+  "N-VA": {
     "primary": "#fabe19",
     "secondary": "#fff0c6"
   },
-  "onafh": {
+  "ONAFH": {
     "primary": "black",
     "secondary": "#eaeaea"
   },
-  "vooruit": {
+  "Vooruit": {
     "primary": "#e72500",
     "secondary": "#ffd5d5"
   },
-  "pvda-ptb": {
+  "PVDA-PTB": {
     "primary": "#ef4135",
     "secondary": "#ffe4e3"
   },
@@ -103,7 +103,7 @@
     "primary": "#8dc63f",
     "secondary": "#d7f2cd"
   },
-  "défi": {
+  "DéFI": {
     "primary": "#660099",
     "secondary": "#dfbcff"
   },
