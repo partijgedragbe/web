@@ -391,7 +391,7 @@ eleventyComputed:
                             <p>Auteurs</p>
                             <p>
                                 {% for author in doc.authors %}
-                                {% set fraction = author.fraction | lower %}
+                                {% set fraction = author.fraction %}
                                 {% set primaryColor = fractionColors[fraction].primary or '#95a5a6' %}
                                 {% set secondaryColor = fractionColors[fraction].secondary or '#95a5a6' %}
                                 {% if author.name == "government" %}
@@ -432,7 +432,7 @@ eleventyComputed:
                                     {% elseif author.name == "Sénat/Senaat (AUTEUR)" %}
                                     <span>Senaat</span><br>
                                     {% else %}
-                                    {% set fraction = author.fraction | lower %}
+                                    {% set fraction = author.fraction %}
                                     {% set primaryColor = fractionColors[fraction].primary or '#95a5a6' %}
                                     {% set secondaryColor = fractionColors[fraction].secondary or '#95a5a6' %}
                                     <li class="gap" style="display: flex; margin-left: 0; width: 100%;"><a href="/fractions/{{ author.fraction | slugify }}/"><span class="badge" style="color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ author.fraction }}</span></a><a href="/members/{{ author.name | slugify }}/">{{ author.name }}</a></li>
