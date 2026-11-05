@@ -16,8 +16,8 @@ i18nSubheader: "governmentSubheader"
         {% set active = mandates | getActive(page.date) %}
         {% if active %}
             <div class="card padded flex-col gap align-items:start">
-                {% set primaryColor = fractionColors[active.fraction | lower].primary or '#95a5a6' %}
-                {% set secondaryColor = fractionColors[active.fraction | lower].secondary or '#95a5a6' %}
+                {% set primaryColor = fractionColors[active.fraction].primary or '#95a5a6' %}
+                {% set secondaryColor = fractionColors[active.fraction].secondary or '#95a5a6' %}
                 <h3 class="margin:0">{{ name }}</h3>
                 <p>{{ active.function }}</p>
                 <a href="/fractions/{{ active.fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ active.fraction }}</a>

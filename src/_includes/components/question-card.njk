@@ -39,7 +39,7 @@
                 <p>Gesteld door</p>
                 <p>
                     {% for questioner in params.question.questioners %}
-                    {% set fraction = questioner.fraction | lower %}
+                    {% set fraction = questioner.fraction %}
                     {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
                     {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
                     <span class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ questioner.fraction | normaliseFraction }}</span>
@@ -50,7 +50,7 @@
                 {% else %}
                 <p>Gesteld door</p>
                 <p>
-                    {% set fraction = params.question.questioners[0].fraction | lower %}
+                    {% set fraction = params.question.questioners[0].fraction %}
                     {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
                     {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
                     <a href="/fractions/{{ params.question.questioners[0].fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ params.question.questioners[0].fraction | normaliseFraction }}</a>
@@ -81,8 +81,8 @@
                     {% for respondent in params.question.respondents %}
                     {% set function = params.functions[respondent.name] | getActive(params.question.date) %}
                     {% set fraction = function.fraction %}
-                    {% set primaryColor = params.fractionColors[fraction | lower].primary or '#95a5a6' %}
-                    {% set secondaryColor = params.fractionColors[fraction | lower].secondary or '#95a5a6' %}
+                    {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
+                    {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
                     <a href="/fractions/{{ fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ fraction | normaliseFraction }}</a>
                     <span><a href="/government/">{{ respondent.name }}</a>{% if function %} ({{ function.function }}){% endif %}</span><br>
                     {% endfor %}

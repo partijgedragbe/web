@@ -49,7 +49,7 @@
                     <p>Ingediend door</p>
                     <p>
                         {% for author in params.proposition.authors %}
-                        {% set fraction = author.fraction | lower %}
+                        {% set fraction = author.fraction %}
                         {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
                         {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
                         <a href="/fractions/{{ author.fraction | slugify }}/" class="badge bold" style="--bg: {{ secondaryColor }}; color: {{ primaryColor }}; background-color: {{ secondaryColor }};">{{ author.fraction | normaliseFraction }}</a>
@@ -62,7 +62,7 @@
                     <p>Ingediend door</p>
                     <p>
                         {% set author = params.proposition.authors[0] %}
-                        {% set fraction = author.fraction | lower %}
+                        {% set fraction = author.fraction %}
                         {% set primaryColor = params.fractionColors[fraction].primary or '#95a5a6' %}
                         {% set secondaryColor = params.fractionColors[fraction].secondary or '#95a5a6' %}
                         {% if author.name == "government" %}

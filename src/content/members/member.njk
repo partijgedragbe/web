@@ -22,8 +22,8 @@ eleventyComputed:
 
 <!-- VARIABLES -->
 {% set name = member.first_name + " " + member.last_name %}
-{% set primaryColor = fractionColors[member.fraction | lower].primary or '#95a5a6' %}
-{% set secondaryColor = fractionColors[member.fraction | lower].secondary or '#95a5a6' %}
+{% set primaryColor = fractionColors[member.fraction].primary or '#95a5a6' %}
+{% set secondaryColor = fractionColors[member.fraction].secondary or '#95a5a6' %}
 
 <!-- COMPONENTS -->
 {%- from "components/proposition-card.njk" import propositionCard -%}
