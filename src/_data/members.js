@@ -414,16 +414,21 @@ export default async function () {
         sessions: Array.from(m.sessions),
       }));
 
-      members.filter((row) => String(row[1]) === "56").forEach((member) => {
-        const eligibleVotes = votesRows.filter((r) =>
-          new Date(r[3]) >= new Date(member.start_date)
+      members.forEach((member) => {
+        const start = new Date(member.start_date);
+        const eligibleVotes = votesRows.filter((r) => new Date(r[3]) >= start);
+
+        member.attendance = Math.min(
+          1,
+          member.votes.length / (eligibleVotes.length || 1),
         );
-        member.attendance = member.votes.length / (eligibleVotes.length || 1);
+
         const eligibleDays = new Set(eligibleVotes.map((r) => r[3]));
         const attendedDays = new Set(member.votes.map((v) => v.date));
         member.normalizedAttendance = eligibleDays.size === 0
           ? 0
-          : attendedDays.size / eligibleDays.size;
+          : Math.min(1, attendedDays.size / eligibleDays.size);
+
         const outlierVotes = member.votes.filter((v) => v.outlier).length;
         member.outlier = member.votes.length > 0
           ? 100 - Math.round((outlierVotes / member.votes.length) * 1000) / 10
